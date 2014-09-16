@@ -23,7 +23,7 @@
 
 @interface InstagramTag : NSObject
 
-@property (readonly) NSString* name;
-@property (readonly) NSInteger mediaCount;
+@property (nonatomic, readonly) NSString* name;
+@property (nonatomic, readonly) NSInteger mediaCount;
 
 @end

@@ -22,7 +22,7 @@
 
 @interface InstagramModel : NSObject
 
-@property (readonly) NSString* Id;
+@property (nonatomic, readonly) NSString* Id;
 
 - (id)initWithInfo:(NSDictionary *)info;
 

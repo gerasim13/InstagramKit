@@ -24,17 +24,17 @@
 
 @interface InstagramUser : InstagramModel
 
-@property (readonly) NSString* username;
-@property (readonly) NSString* fullName;
-@property (readonly) NSURL* profilePictureURL;
-@property (readonly) NSString* bio;
-@property (readonly) NSURL* website;
+@property (nonatomic, readonly) NSString* username;
+@property (nonatomic, readonly) NSString* fullName;
+@property (nonatomic, readonly) NSURL* profilePictureURL;
+@property (nonatomic, readonly) NSString* bio;
+@property (nonatomic, readonly) NSURL* website;
 // Transient
-@property (readonly) NSInteger mediaCount;
-@property (readonly) NSInteger followsCount;
-@property (readonly) NSInteger followedByCount;
+@property (nonatomic, readonly) NSInteger mediaCount;
+@property (nonatomic, readonly) NSInteger followsCount;
+@property (nonatomic, readonly) NSInteger followedByCount;
 
-@property (readonly) NSArray *recentMedia;
+@property (nonatomic, readonly) NSArray *recentMedia;
 
 - (void)loadCounts;
 - (void)loadCountsWithSuccess:(void(^)(void))success failure:(void(^)(void))failure;

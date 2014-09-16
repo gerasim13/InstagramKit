@@ -10,9 +10,9 @@
 
 @interface InstagramPaginationInfo : NSObject
 
-@property (readonly) NSURL* nextURL;
-@property (readonly) NSString *nextMaxId;
-@property (readonly) Class type;
+@property (nonatomic, readonly) NSURL* nextURL;
+@property (nonatomic, readonly) NSString *nextMaxId;
+@property (nonatomic, readonly) Class type;
 - (id)initWithInfo:(NSDictionary *)info andObjectType:(Class)type;
 
 @end

@@ -149,11 +149,13 @@ typedef enum
         mBackgroundQueue = dispatch_queue_create("background", NULL);
 
         self.httpManager.responseSerializer = [[AFJSONResponseSerializer alloc] init];
-
+        
+#if !defined(NS_BLOCK_ASSERTIONS)
         BOOL validClientId = IKNotNull(self.appClientID) && ![self.appClientID isEqualToString:@""] && ![self.appClientID isEqualToString:@"<Client Id here>"];
         NSAssert(validClientId, @"Invalid Instagram Client ID.");
         NSAssert([NSURL URLWithString:self.appRedirectURL], @"App Redirect URL invalid: %@", self.appRedirectURL);
         NSAssert([NSURL URLWithString:self.authorizationURL], @"Authorization URL invalid: %@", self.authorizationURL);
+#endif
     }
     return self;
 }
@@ -488,18 +490,50 @@ typedef enum
 - (void)getPopularMediaWithSuccess:(InstagramMediaBlock)success
                            failure:(InstagramFailureBlock)failure
 {
-    [self getPath:@"media/popular" parameters:nil responseModel:[InstagramMedia class] success:^(id response, InstagramPaginationInfo *paginationInfo) {
+    [self getPath:@"media/popular"
+       parameters:nil
+    responseModel:[InstagramMedia class]
+          success:^(id response, InstagramPaginationInfo *paginationInfo)
+    {
         NSArray *objects = response;
         if(success)
 		{
 			success(objects, paginationInfo);
 		}
-    } failure:^(NSError *error, NSInteger statusCode) {
+    }
+          failure:^(NSError *error, NSInteger statusCode)
+    {
         if(failure)
 		{
 			failure(error);
 		}
     }];
+}
+                         
+- (void)getPopularMediaWithCount:(NSInteger)count
+                     maxId:(NSString*)maxId
+                     success:(InstagramMediaBlock)success
+                     failure:(InstagramFailureBlock)failure
+{
+    NSDictionary *params = [self parametersFromCount:count maxId:maxId andMaxIdType:kPaginationMaxId];
+    [self getPath:@"media/popular"
+       parameters:params
+    responseModel:[InstagramMedia class]
+          success:^(id response, InstagramPaginationInfo *paginationInfo)
+     {
+         NSArray *objects = response;
+         if(success)
+         {
+             success(objects, paginationInfo);
+         }
+     }
+          failure:^(NSError *error, NSInteger statusCode)
+     {
+         if(failure)
+         {
+             failure(error);
+         }
+     }];
 }
 
 

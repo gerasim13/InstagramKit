@@ -26,8 +26,8 @@
 @class InstagramTag;
 
 
-typedef void(^InstagramLoginBlock)(NSError* error);
-typedef void(^InstagramMediaBlock)(NSArray *media, InstagramPaginationInfo *paginationInfo);
+typedef void (^InstagramLoginBlock)(NSError* error);
+typedef void (^InstagramMediaBlock)(NSArray *media, InstagramPaginationInfo *paginationInfo);
 typedef void (^InstagramObjectsBlock)(NSArray *objects, InstagramPaginationInfo *paginationInfo);
 typedef void (^InstagramTagsBlock)(NSArray *tags, InstagramPaginationInfo *paginationInfo);
 typedef void (^InstagramCommentsBlock)(NSArray *comments);
@@ -114,6 +114,11 @@ typedef NS_OPTIONS(NSInteger, IKLoginScope) {
 
 - (void)getPopularMediaWithSuccess:(InstagramMediaBlock)success
                            failure:(InstagramFailureBlock)failure;
+
+- (void)getPopularMediaWithCount:(NSInteger)count
+                           maxId:(NSString*)maxId
+                         success:(InstagramMediaBlock)success
+                         failure:(InstagramFailureBlock)failure;
 
 #pragma mark -
 
